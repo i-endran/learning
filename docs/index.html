@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub - Technical Courses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .course-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .course-card:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <h1 class="text-3xl font-bold text-slate-900">Learning Hub</h1>
+            <p class="mt-2 text-slate-600">Explore technical courses and refreshers</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Java Web Refresher Card -->
+            <a href="Java/java_web_refresher.html" class="course-card block">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-sky-100 text-sky-800">
+                                Java
+                            </span>
+                            <span class="text-slate-500 text-sm">Web Development</span>
+                        </div>
+                        <h2 class="mt-4 text-xl font-semibold text-slate-900">Java Web Refresher</h2>
+                        <p class="mt-2 text-slate-600">Interactive guide covering Java web development fundamentals, request lifecycle, security, and best practices.</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Placeholder Card for Future Courses -->
+            <div class="course-card block opacity-50">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-dashed border-slate-200">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-600">
+                                Coming Soon
+                            </span>
+                        </div>
+                        <h2 class="mt-4 text-xl font-semibold text-slate-900">More Courses</h2>
+                        <p class="mt-2 text-slate-600">Additional technical courses and refreshers will be added here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <p class="text-center text-slate-600">© 2025 Learning Hub. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
