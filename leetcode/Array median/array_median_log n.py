@@ -1,7 +1,7 @@
 import math
 
 def find_median(A, B):
-
+    i = 0
     m, n = len(A), len(B)
 
     if (m > n):
@@ -13,6 +13,8 @@ def find_median(A, B):
     bingo = False
 
     for _ in range(m+n):
+
+        i += 1
 
         mid_b_l = ((m + n + 1) // 2 ) - mid_a_l - 2 # reducing the length to index
 
@@ -31,11 +33,11 @@ def find_median(A, B):
     
     if (bingo):
         if (m + n) % 2:
-            return max(_get_value(A, mid_a_l), _get_value(B,mid_b_l))
+            return max(_get_value(A, mid_a_l), _get_value(B,mid_b_l)), i
         else:
-            return ( max(_get_value(A, mid_a_l), _get_value(B, mid_b_l)) + min(_get_value(A, mid_a_l + 1), _get_value(B, mid_b_l + 1)) ) / 2
+            return ((max(_get_value(A, mid_a_l), _get_value(B, mid_b_l)) + min(_get_value(A, mid_a_l + 1), _get_value(B, mid_b_l + 1)) ) / 2 ), i
     else:
-        return None
+        return None, None
 
         
 def _get_value(array, i):
@@ -48,11 +50,11 @@ def _get_value(array, i):
 
 
 def main():
-    A = [5,5,5,5,5]
-    B = [5,5,5,5,5,5]
+    A = [1,2,3,4]
+    B = [5,6,7,8,9,10]
 
-    median = find_median(A, B)
-    print ("median -> " + str(median))
+    median, iteration = find_median(A, B)
+    print ("median -> " + str(median) + ", i -> " + str(iteration))
 
 if __name__ == "__main__":
     main()
