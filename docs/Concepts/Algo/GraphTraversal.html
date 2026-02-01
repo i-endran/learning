@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Algorithms Crash Course for LeetCode</title>
+    <link rel="stylesheet" href="../../assets/style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 40px;">
+            <h1>Graph Algorithms Crash Course</h1>
+            <p class="description">A quick reference guide for mastering BFS, DFS, Dijkstra, Bellman-Ford, Topological
+                Sort, and Union-Find for competitive programming and technical interviews.</p>
+
+            <section class="content-section">
+                <h2>1. The Core Algorithms: At a Glance</h2>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Analogy</th>
+                            <th>Key Behavior</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BFS</strong></td>
+                            <td>Ripple in a pond</td>
+                            <td>Explores layer-by-layer (Wide).</td>
+                            <td>Shortest Path (Unweighted)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DFS</strong></td>
+                            <td>Maze Solver</td>
+                            <td>Dives deep, backtracks at dead ends.</td>
+                            <td>Reachability, Cycles, Islands</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dijkstra</strong></td>
+                            <td>Smart GPS</td>
+                            <td>Explores "cheapest" path first.</td>
+                            <td>Shortest Path (Weighted +)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bellman-Ford</strong></td>
+                            <td>Careful Accountant</td>
+                            <td>Checks every edge repeatedly.</td>
+                            <td>Shortest Path (Weighted +/-)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Topological Sort</strong></td>
+                            <td>Assembly Line</td>
+                            <td>Linear ordering of dependencies.</td>
+                            <td>Task Scheduling, Dependency Resolution</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Union-Find</strong></td>
+                            <td>Networking Cables</td>
+                            <td>Connects components dynamically.</td>
+                            <td>Connectivity, Kruskal's MST</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-section">
+                <h2>2. Implementation Templates (Python)</h2>
+
+                <h3>BFS (Breadth-First Search)</h3>
+                <div class="card p-class">
+                    <strong>Logic:</strong> Use a Queue. FIFO (First-In, First-Out).
+                </div>
+                <pre><code><span class="k">from</span> collections <span class="k">import</span> deque
+
+<span class="k">def</span> <span class="f">bfs</span>(graph, start):
+    queue = deque([(start, 0)]) <span class="c"># Store (node, distance)</span>
+    visited = set([start])
+    
+    <span class="k">while</span> queue:
+        node, dist = queue.popleft() <span class="c"># POP LEFT</span>
+        <span class="c"># Process node...</span>
+        
+        <span class="k">for</span> neighbor <span class="k">in</span> graph[node]:
+            <span class="k">if</span> neighbor <span class="k">not in</span> visited:
+                visited.add(neighbor)
+                queue.append((neighbor, dist + 1))</code></pre>
+
+                <h3>DFS (Depth-First Search)</h3>
+                <div class="card p-class">
+                    <strong>Logic:</strong> Use Recursion (Implicit Stack).
+                </div>
+                <pre><code><span class="k">def</span> <span class="f">dfs</span>(graph, node, visited=<span class="k">None</span>):
+    <span class="k">if</span> visited <span class="k">is None</span>: 
+        visited = set()
+    
+    visited.add(node)
+    <span class="c"># Process node...</span>
+    
+    <span class="k">for</span> neighbor <span class="k">in</span> graph[node]:
+        <span class="k">if</span> neighbor <span class="k">not in</span> visited:
+            <span class="f">dfs</span>(graph, neighbor, visited)</code></pre>
+
+                <h3>Dijkstra's Algorithm</h3>
+                <div class="card p-class">
+                    <strong>Logic:</strong> Use a Priority Queue (Min-Heap). Always pop the smallest cost.
+                </div>
+                <pre><code><span class="k">import</span> heapq
+
+<span class="k">def</span> <span class="f">dijkstra</span>(graph, start):
+    pq = [(0, start)] <span class="c"># (cost, node)</span>
+    dists = {node: float(<span class="s">'inf'</span>) <span class="k">for</span> node <span class="k">in</span> graph}
+    dists[start] = 0
+    
+    <span class="k">while</span> pq:
+        d, u = heapq.heappop(pq) <span class="c"># POP SMALLEST</span>
+        
+        <span class="k">if</span> d > dists[u]: <span class="k">continue</span> <span class="c"># Skip stale entries</span>
+        
+        <span class="k">for</span> v, weight <span class="k">in</span> graph[u]:
+            <span class="k">if</span> dists[u] + weight <span class="k">&lt;</span> dists[v]:
+                dists[v] = dists[u] + weight
+                heapq.heappush(pq, (dists[v], v))
+    <span class="k">return</span> dists</code></pre>
+
+                <h3>Bellman-Ford Algorithm</h3>
+                <div class="card np-class">
+                    <strong>Logic:</strong> Brute force relaxation (V-1 times). Handles negative weights.
+                </div>
+                <pre><code><span class="k">def</span> <span class="f">bellman_ford</span>(n, edges, start):
+    dist = [float(<span class="s">'inf'</span>)] * n
+    dist[start] = 0
+    
+    <span class="k">for</span> _ <span class="k">in</span> range(n - 1): <span class="c"># Repeat V-1 times</span>
+        <span class="k">for</span> u, v, w <span class="k">in</span> edges:
+            <span class="k">if</span> dist[u] + w <span class="k">&lt;</span> dist[v]:
+                dist[v] = dist[u] + w
+    <span class="k">return</span> dist</code></pre>
+
+                <h3>Topological Sort (Kahn's Algorithm)</h3>
+                <div class="card p-class">
+                    <strong>Logic:</strong> DAG only. Count In-Degrees. Nodes with 0 in-degree go first.
+                </div>
+                <pre><code><span class="k">from</span> collections <span class="k">import</span> deque
+
+<span class="k">def</span> <span class="f">topological_sort</span>(n, edges):
+    in_degree = [0] * n
+    graph = {i: [] <span class="k">for</span> i <span class="k">in</span> range(n)}
+    
+    <span class="k">for</span> u, v <span class="k">in</span> edges:
+        graph[u].append(v)
+        in_degree[v] += 1
+        
+    queue = deque([i <span class="k">for</span> i <span class="k">in</span> range(n) <span class="k">if</span> in_degree[i] == 0])
+    topo_order = []
+    
+    <span class="k">while</span> queue:
+        node = queue.popleft()
+        topo_order.append(node)
+        
+        <span class="k">for</span> neighbor <span class="k">in</span> graph[node]:
+            in_degree[neighbor] -= 1
+            <span class="k">if</span> in_degree[neighbor] == 0:
+                queue.append(neighbor)
+                
+    <span class="k">return</span> topo_order <span class="k">if</span> len(topo_order) == n <span class="k">else</span> [] <span class="c"># Empty if cycle detected</span></code></pre>
+
+                <h3>Union-Find (Disjoint Set Union)</h3>
+                <div class="card p-class">
+                    <strong>Logic:</strong> <code>find()</code> with Path Compression, <code>union()</code> with Rank.
+                    Nearly O(1).
+                </div>
+                <pre><code><span class="k">class</span> <span class="f">UnionFind</span>:
+    <span class="k">def</span> <span class="f">__init__</span>(self, n):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+        
+    <span class="k">def</span> <span class="f">find</span>(self, p):
+        <span class="k">if</span> self.parent[p] != p:
+            self.parent[p] = self.find(self.parent[p]) <span class="c"># Path Compression</span>
+        <span class="k">return</span> self.parent[p]
+    
+    <span class="k">def</span> <span class="f">union</span>(self, p, q):
+        rootP = self.find(p)
+        rootQ = self.find(q)
+        
+        <span class="k">if</span> rootP != rootQ:
+            <span class="c"># Union by Rank</span>
+            <span class="k">if</span> self.rank[rootP] > self.rank[rootQ]:
+                self.parent[rootQ] = rootP
+            <span class="k">elif</span> self.rank[rootP] < self.rank[rootQ]:
+                self.parent[rootP] = rootQ
+            <span class="k">else</span>:
+                self.parent[rootQ] = rootP
+                self.rank[rootP] += 1
+            <span class="k">return</span> <span class="k">True</span>
+        <span class="k">return</span> <span class="k">False</span></code></pre>
+
+            </section>
+
+            <section class="content-section">
+                <h2>3. Complexity Cheat Sheet</h2>
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Time Complexity</th>
+                            <th>Space Complexity</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BFS</strong></td>
+                            <td>O(V + E)</td>
+                            <td>O(V)</td>
+                            <td>Standard linear scan.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DFS</strong></td>
+                            <td>O(V + E)</td>
+                            <td>O(V)</td>
+                            <td>Space depends on recursion depth.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dijkstra</strong></td>
+                            <td>O(E log V)</td>
+                            <td>O(V)</td>
+                            <td>Log factor comes from Heap operations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bellman-Ford</strong></td>
+                            <td>O(V × E)</td>
+                            <td>O(V)</td>
+                            <td>Slowest, but handles negative weights.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Topological Sort</strong></td>
+                            <td>O(V + E)</td>
+                            <td>O(V)</td>
+                            <td>Only works on Directed Acyclic Graphs (DAGs).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Union-Find</strong></td>
+                            <td>O(α(N)) ≈ O(1)</td>
+                            <td>O(V)</td>
+                            <td>Ackermann function (inverse) is very slow-growing.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="content-section">
+                <h2>4. LeetCode Strategy Guide</h2>
+                <ul class="strategy-list" style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 15px;">✅ <strong>Unweighted Shortest Path?</strong> → Use
+                        <strong>BFS</strong>. Do not use DFS.</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>Weighted Shortest Path?</strong> → Use
+                        <strong>Dijkstra</strong>.</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>Searching / Connectivity?</strong> → Use
+                        <strong>DFS</strong> (Easier to write recursively).</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>Negative Weights?</strong> → Use
+                        <strong>Bellman-Ford</strong>.</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>Course Schedule / Prerequsites?</strong> → Use
+                        <strong>Topological Sort</strong>.</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>Grouping / Connected Components?</strong> → Use
+                        <strong>Union-Find</strong>.</li>
+                    <li style="margin-bottom: 15px;">✅ <strong>Grid/Matrix Input?</strong> → Use direction array:
+                        <code>[(0,1), (0,-1), (1,0), (-1,0)]</code>.</li>
+                </ul>
+            </section>
+
+            <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: #777;">
+                <p>Prepared for LeetCode Interview Prep</p>
+            </footer>
+        </div>
+    </header>
+</body>
+
+</html>

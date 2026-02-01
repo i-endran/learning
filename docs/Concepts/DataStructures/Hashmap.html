@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Table & Caching Crash Course</title>
+    <link rel="stylesheet" href="../../assets/style.css">
+</head>
+
+<body>
+
+    <div class="container" style="max-width: 900px; margin: 0 auto; padding: 40px;">
+        <h1>Hash Table & Caching: The Crash Course</h1>
+
+        <div class="card p-class">
+            <strong>Goal:</strong> Map a potentially infinite key space (Strings, Objects) to a finite array index using
+            the formula: <code>Index = hash(Key) % Array_Size</code>.
+        </div>
+
+        <section class="content-section">
+            <h2>I. The Core Mechanism</h2>
+            <p>You cannot store keys "as is" because the address space would be too vast. Hashing "compresses" the key
+                into a usable integer.</p>
+            <ul>
+                <li><strong>Average Case:</strong> <code>O(1)</code> (Constant time).</li>
+                <li><strong>Worst Case:</strong> <code>O(n)</code> (All keys collide into one bucket).</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>II. Collision Handling Strategies</h2>
+            <p>When <code>hash(A) % N == hash(B) % N</code>, you need a strategy.</p>
+
+            <table class="complexity-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Separate Chaining (Java)</th>
+                        <th>Open Addressing (Python)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Concept</strong></td>
+                        <td><strong>"Let them pile up."</strong> The bucket holds a pointer to a Linked List. Colliding
+                            items hang off the bucket.</td>
+                        <td><strong>"Find another spot."</strong> If the bucket is full, probe (jump) to the next
+                            available slot in the main array.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Probing</strong></td>
+                        <td>None. Traverse the list at that specific index.</td>
+                        <td>
+                            <strong>Linear:</strong> <code>+1</code> (Fastest, causes clustering).<br>
+                            <strong>Quadratic:</strong> <code>+1, +4, +9</code> (Less clustering).<br>
+                            <strong>Double Hashing:</strong> Uses 2nd hash for step size.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deletion</strong></td>
+                        <td>Easy. Remove node from list.</td>
+                        <td><strong>Hard.</strong> Requires <strong>Tombstones</strong>. You cannot leave a
+                            <code>null</code> or you break the search chain.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Load Factor</strong></td>
+                        <td>Can tolerate high Load Factor (0.75+).</td>
+                        <td>Needs low Load Factor (< 0.66) to keep the array sparse.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="content-section">
+            <h2>III. Advanced Internals</h2>
+
+            <h3>1. Java HashMap</h3>
+            <ul>
+                <li><strong>Optimization (Java 8+):</strong> If a collision chain grows beyond <strong>8 nodes</strong>,
+                    it converts the Linked List into a <strong>Red-Black Tree</strong>. This improves worst-case lookup
+                    from <code>O(n)</code> to <code>O(log n)</code>.</li>
+                <li><strong>Concurrency (ConcurrentHashMap):</strong>
+                    <ul>
+                        <li><strong>Reads:</strong> Lock-free (volatile).</li>
+                        <li><strong>Writes:</strong> Uses <strong>CAS</strong> (Compare-and-Swap) for empty slots. If
+                            occupied, it locks <strong>only that specific bucket</strong> (Fine-grained locking).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>2. Python Dict</h3>
+            <ul>
+                <li><strong>Memory Optimization:</strong> Uses "Compact Dict" (Split arrays).
+                    <ul>
+                        <li><code>Indices Array</code>: Dense, small integers pointing to data.</li>
+                        <li><code>Entries Array</code>: Stores actual data in <strong>insertion order</strong>.</li>
+                    </ul>
+                </li>
+                <li><strong>Probing:</strong> Uses a pseudo-random probing sequence based on the hash to avoid
+                    clustering.</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>IV. Probabilistic Structures</h2>
+
+            <div class="card np-class">
+                <strong>Trade-off:</strong> Save massive space by accepting a small probability of error.
+            </div>
+
+            <h3>1. Bloom Filters</h3>
+            <p>A space-efficient probabilistic data structure to test whether an element is a member of a set.</p>
+            <ul>
+                <li><strong>Returns:</strong> "Possibly in set" or "Definitely not in set".</li>
+                <li><strong>False Positives:</strong> Possible (collisions in bit array).</li>
+                <li><strong>False Negatives:</strong> Impossible.</li>
+                <li><strong>Mechanism:</strong> Uses <code>k</code> different hash functions to set bits in an
+                    <code>m</code>-bit array.</li>
+                <li><strong>Use Case:</strong> Database checks (avoid disk read if key doesn't exist), Weak Password
+                    checks.</li>
+            </ul>
+
+            <h3>2. Cuckoo Hashing</h3>
+            <p>A scheme that resolves collisions by using two hash functions and two tables.</p>
+            <ul>
+                <li><strong>Lookup:</strong> <code>O(1)</code> worst-case. It's in position <code>h1(x)</code> or
+                    <code>h2(x)</code>. No searching chains.</li>
+                <li><strong>Insertion:</strong> If both spots are full, kick out the existing item to its alternative
+                    spot ("Cuckoo" behavior). This can cascade.</li>
+                <li><strong>Cycle:</strong> If a cycle of kicking occurs, re-hash everything.</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>V. Critical Interview Concepts</h2>
+
+            <div class="card npc-class">
+                <h3>1. The Mutable Key Trap</h3>
+                <p><strong>Rule:</strong> Keys must be <strong>Immutable</strong> (e.g., String, Integer).</p>
+                <p><strong>The Bug:</strong> If you modify a key <em>after</em> putting it in the map, its hash code
+                    changes. The map looks for it in the "new" bucket index, but the entry is sitting in the "old"
+                    bucket. The data is lost in memory ("Ghost Entry").</p>
+            </div>
+
+            <h3>2. Resizing & Amortized Complexity</h3>
+            <p>When <code>Size > Capacity * Load_Factor</code>, the map creates a double-sized array and
+                <strong>re-hashes</strong> every single item.
+            </p>
+            <p><strong>Cost:</strong> <code>O(n)</code>. This makes Hash Map insertion "Amortized O(1)" (fast usually,
+                slow occasionally).</p>
+
+            <h3>3. Distributed Systems: Consistent Hashing</h3>
+            <p><strong>Problem:</strong> In a distributed cache (e.g., Redis cluster), if one server dies,
+                <code>hash % N</code> changes for everyone. 100% of keys move.
+            </p>
+            <p><strong>Solution:</strong> Map servers and keys to a <strong>360° Ring</strong>. Keys move clockwise to
+                the nearest server.</p>
+            <p><strong>Benefit:</strong> If a server dies, only <code>1/N</code> of keys move. The rest stay put.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>VI. The LRU Cache (System Design)</h2>
+            <p><strong>Goal:</strong> A cache that deletes the "Least Recently Used" item when full.</p>
+
+            <div class="machine-section">
+                <div class="machine-col">
+                    <strong>HashMap</strong><br>
+                    Maps <code>Key</code> &rarr; <code>Node Address</code> (Speed: O(1))
+                </div>
+                <div class="machine-col">
+                    <strong>Doubly Linked List</strong><br>
+                    Maintains Order. Head = Most Recent. Tail = Least Recent.
+                </div>
+            </div>
+
+            <p><strong>Why Doubly Linked?</strong> So you can delete a node from the middle in <code>O(1)</code> without
+                traversing the list to find the "previous" pointer.</p>
+        </section>
+
+        <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: #777;">
+            <p><strong>Next Step:</strong> Try solving <em>LeetCode 146 (LRU Cache)</em> to implement the concepts from
+                Section VI.</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -33,7 +33,8 @@
                     data-target="security">Security: SSL/TLS</a>
                 <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100"
                     href="/Java/java_backend_refresher_raw.html">Full document</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" href="/">← Back to Course
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" href="../index.html">← Back to
+                    Course
                     List</a>
             </nav>
         </aside>
@@ -353,17 +354,21 @@
                     <div id="handshake-diagram" class="space-y-4">
                         <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-1">
                             <strong>1. Client Hello:</strong> Client sends its SSL/TLS version and supported cipher
-                            suites.</div>
+                            suites.
+                        </div>
                         <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-2">
                             <strong>2. Server Hello:</strong> Server picks a cipher suite, sends back its SSL
-                            Certificate (containing its public key).</div>
+                            Certificate (containing its public key).
+                        </div>
                         <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-3">
                             <strong>3. Client Verification & Key Exchange:</strong> Client verifies the certificate. It
                             then generates a symmetric session key, encrypts it with the server's public key, and sends
-                            it to the server.</div>
+                            it to the server.
+                        </div>
                         <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-4">
                             <strong>4. Server Decryption:</strong> Server uses its private key to decrypt the session
-                            key.</div>
+                            key.
+                        </div>
                         <div class="interactive-diagram-item p-4 bg-green-50 rounded-lg border-l-4 border-green-500"
                             data-target="h-desc-5"><strong>5. Secure Communication:</strong> Both client and server now
                             have the same symmetric session key. All further communication is encrypted using this key.
