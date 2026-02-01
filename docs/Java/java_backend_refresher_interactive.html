@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,59 +11,9 @@
     <!-- Application Structure Plan: A thematic, interactive learning module with a persistent sidebar for non-linear navigation. The core is an interactive diagram of the request lifecycle; clicking components reveals detailed explanations. This structure breaks down complex, interrelated topics into manageable chunks, promoting exploration and understanding over passive reading, which is ideal for a technical refresher. -->
     <!-- Visualization & Content Choices: Request Cycle -> Interactive Diagram (HTML/CSS/JS) -> To visualize flow and component roles. Thread/Connection Pools -> Bar Chart (Chart.js) -> To quantitatively show performance benefits. SSL Handshake -> Step-by-step clickable flow (HTML/CSS/JS) -> To demystify a complex security process. All choices prioritize interaction and clarity for a developer audience. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        .nav-link {
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
-        }
-        .nav-link.active {
-            background-color: #0284c7;
-            color: white;
-            font-weight: 600;
-        }
-        .interactive-diagram-item {
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            border: 2px solid transparent;
-        }
-        .interactive-diagram-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .interactive-diagram-item.selected {
-            border-color: #0ea5e9;
-            box-shadow: 0 6px 16px rgba(14, 165, 233, 0.3);
-            transform: translateY(-2px);
-        }
-        .code-block {
-            background-color: #1e293b;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre-wrap;
-            font-size: 0.875rem;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
+
 <body class="bg-slate-50 text-slate-800">
 
     <div class="flex flex-col md:flex-row min-h-screen">
@@ -70,23 +21,33 @@
         <aside class="w-full md:w-64 bg-white border-r border-slate-200 p-4 md:p-6 sticky top-0 md:h-screen">
             <h1 class="text-2xl font-bold text-sky-700 mb-6">Java Backend Guide</h1>
             <nav id="main-nav" class="space-y-2">
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="overview">The Big Picture</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="lifecycle">Request/Response Cycle</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="components">Core Components</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="resources">Resource Management</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="security">Security: SSL/TLS</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" href="/Java/java_backend_refresher_raw.html">Full document</a>
-                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" href="/">← Back to Course List</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="overview">The Big
+                    Picture</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100"
+                    data-target="lifecycle">Request/Response Cycle</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" data-target="components">Core
+                    Components</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100"
+                    data-target="resources">Resource Management</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100"
+                    data-target="security">Security: SSL/TLS</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100"
+                    href="/Java/java_backend_refresher_raw.html">Full document</a>
+                <a class="nav-link block p-3 rounded-lg text-slate-700 hover:bg-sky-100" href="/">← Back to Course
+                    List</a>
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 p-6 md:p-10">
             <!-- Overview Section -->
-            <section id="overview" class="content-section">
+            <section id="overview" class="tab-content">
                 <h2 class="text-3xl font-bold mb-4 text-slate-900">The Big Picture: Java Web Architecture</h2>
                 <p class="mb-6 text-lg text-slate-600">
-                    This section provides a high-level overview of a typical Java web application architecture. It shows how different components like the client, web server, and application server interact. The goal is to build a mental model of where each piece of technology fits before diving into the details. Click on the components below to see how they relate to one another.
+                    This section provides a high-level overview of a typical Java web application architecture. It shows
+                    how different components like the client, web server, and application server interact. The goal is
+                    to build a mental model of where each piece of technology fits before diving into the details. Click
+                    on the components below to see how they relate to one another.
                 </p>
                 <div class="bg-white p-6 rounded-xl shadow-md">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
@@ -109,195 +70,317 @@
                         <h3 class="text-xl font-bold text-slate-800">3. Application Server / Servlet Container</h3>
                         <p class="text-md text-slate-600 mb-4">(e.g., Apache Tomcat, Jetty)</p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-white rounded-lg border">
-                             <div class="p-3 bg-indigo-50 rounded-md">
+                            <div class="p-3 bg-indigo-50 rounded-md">
                                 <h4 class="font-semibold text-indigo-800">Filters</h4>
                                 <p class="text-xs text-slate-500">Authentication, Logging</p>
-                             </div>
-                             <div class="p-3 bg-rose-50 rounded-md">
+                            </div>
+                            <div class="p-3 bg-rose-50 rounded-md">
                                 <h4 class="font-semibold text-rose-800">Servlets</h4>
                                 <p class="text-xs text-slate-500">Business Logic</p>
                             </div>
-                             <div class="p-3 bg-amber-50 rounded-md">
+                            <div class="p-3 bg-amber-50 rounded-md">
                                 <h4 class="font-semibold text-amber-800">Resource Pools</h4>
                                 <p class="text-xs text-slate-500">DB Connections, Threads</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                 <div class="mt-8 bg-white p-6 rounded-xl shadow-md">
+                <div class="mt-8 bg-white p-6 rounded-xl shadow-md">
                     <h3 class="text-2xl font-bold mb-3 text-slate-900">Key Concepts</h3>
-                     <p class="mb-4 text-slate-600">Java EE (now <span class="font-semibold">Jakarta EE</span>) is a set of specifications that define a standard for developing enterprise Java applications. A <span class="font-semibold">Servlet Container</span> like Apache Tomcat is a concrete implementation of some of those specifications, primarily the Servlet API. It manages the lifecycle of Servlets, handles network requests, and provides a runtime environment for your web application.</p>
+                    <p class="mb-4 text-slate-600">Java EE (now <span class="font-semibold">Jakarta EE</span>) is a set
+                        of specifications that define a standard for developing enterprise Java applications. A <span
+                            class="font-semibold">Servlet Container</span> like Apache Tomcat is a concrete
+                        implementation of some of those specifications, primarily the Servlet API. It manages the
+                        lifecycle of Servlets, handles network requests, and provides a runtime environment for your web
+                        application.</p>
                 </div>
             </section>
 
             <!-- Request/Response Cycle Section -->
-            <section id="lifecycle" class="content-section">
+            <section id="lifecycle" class="tab-content">
                 <h2 class="text-3xl font-bold mb-4 text-slate-900">Interactive Request/Response Cycle</h2>
                 <p class="mb-6 text-lg text-slate-600">
-                    This is the heart of any web application. The diagram below illustrates the complete journey of a single HTTP request from the client to your Java code and back. Click on each step in the flow to get a detailed explanation of what happens at that stage. This helps clarify the roles of Filters, Servlets, and the container itself.
+                    This is the heart of any web application. The diagram below illustrates the complete journey of a
+                    single HTTP request from the client to your Java code and back. Click on each step in the flow to
+                    get a detailed explanation of what happens at that stage. This helps clarify the roles of Filters,
+                    Servlets, and the container itself.
                 </p>
                 <div class="flex flex-col lg:flex-row gap-6">
                     <!-- Diagram -->
                     <div id="request-diagram" class="flex-1 space-y-3">
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-sky-500" data-target="desc-1"><strong>1. Client Request</strong> → Browser sends HTTP GET/POST</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-sky-500"
+                            data-target="desc-1"><strong>1. Client Request</strong> → Browser sends HTTP GET/POST</div>
                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-slate-400" data-target="desc-2"><strong>2. Tomcat Connector</strong> → Listens on a port (8080), accepts connection</div>
-                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-slate-400" data-target="desc-3"><strong>3. URL Mapping</strong> → Container finds matching webapp & servlet</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-slate-400"
+                            data-target="desc-2"><strong>2. Tomcat Connector</strong> → Listens on a port (8080),
+                            accepts connection</div>
                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-indigo-500" data-target="desc-4"><strong>4. Filter Chain (Request)</strong> → Authentication, Logging filters run</div>
-                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-rose-500" data-target="desc-5"><strong>5. Servlet `service()`</strong> → `doGet()`/`doPost()` executes business logic</div>
-                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                         <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-rose-500" data-target="desc-6"><strong>6. Servlet Creates Response</strong> → Sets headers, status, and body</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-slate-400"
+                            data-target="desc-3"><strong>3. URL Mapping</strong> → Container finds matching webapp &
+                            servlet</div>
                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-indigo-500" data-target="desc-7"><strong>7. Filter Chain (Response)</strong> → Filters process outgoing response (e.g., GZIP)</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-indigo-500"
+                            data-target="desc-4"><strong>4. Filter Chain (Request)</strong> → Authentication, Logging
+                            filters run</div>
                         <div class="ml-4 text-2xl text-slate-300">↓</div>
-                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-sky-500" data-target="desc-8"><strong>8. Client Receives Response</strong> ← Tomcat sends final HTTP response</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-rose-500"
+                            data-target="desc-5"><strong>5. Servlet `service()`</strong> → `doGet()`/`doPost()` executes
+                            business logic</div>
+                        <div class="ml-4 text-2xl text-slate-300">↓</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-rose-500"
+                            data-target="desc-6"><strong>6. Servlet Creates Response</strong> → Sets headers, status,
+                            and body</div>
+                        <div class="ml-4 text-2xl text-slate-300">↓</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-indigo-500"
+                            data-target="desc-7"><strong>7. Filter Chain (Response)</strong> → Filters process outgoing
+                            response (e.g., GZIP)</div>
+                        <div class="ml-4 text-2xl text-slate-300">↓</div>
+                        <div class="interactive-diagram-item p-4 bg-white rounded-lg shadow-sm border-l-4 border-sky-500"
+                            data-target="desc-8"><strong>8. Client Receives Response</strong> ← Tomcat sends final HTTP
+                            response</div>
                     </div>
                     <!-- Description Panel -->
                     <div id="description-panel" class="lg:w-1/2 bg-white p-6 rounded-xl shadow-md">
                         <div id="desc-default" class="description-content">
                             <h3 class="text-xl font-bold text-slate-900 mb-2">Click a step to learn more</h3>
-                            <p class="text-slate-600">The panel on the left shows the ordered steps of a request. Select one to see what happens under the hood.</p>
+                            <p class="text-slate-600">The panel on the left shows the ordered steps of a request. Select
+                                one to see what happens under the hood.</p>
                         </div>
-                        <div id="desc-1" class="description-content hidden"><h3 class="text-xl font-bold text-sky-700 mb-2">1. Client Request</h3><p class="text-slate-600">Everything starts here. A user interacts with a browser, which constructs an HTTP request. This request includes the method (GET, POST), the target URL (`/users/123`), headers (like `Accept`, `User-Agent`), and an optional body (for POST requests).</p></div>
-                        <div id="desc-2" class="description-content hidden"><h3 class="text-xl font-bold text-slate-700 mb-2">2. Tomcat Connector</h3><p class="text-slate-600">Tomcat's Connector component is a network listener. It's bound to a specific port (e.g., 8080 for HTTP, 8443 for HTTPS). It accepts the raw TCP connection from the client, parses the HTTP request, and creates `HttpServletRequest` and `HttpServletResponse` objects.</p></div>
-                        <div id="desc-3" class="description-content hidden"><h3 class="text-xl font-bold text-slate-700 mb-2">3. URL Mapping</h3><p class="text-slate-600">The container inspects the request URL. First, it matches the hostname to a virtual Host. Then, it uses the path to find the correct web application (Context). Finally, it consults the application's deployment descriptor (`web.xml` or `@WebServlet` annotations) to find which Servlet is mapped to the request's URL pattern (e.g., `/users/*`).</p></div>
-                        <div id="desc-4" class="description-content hidden"><h3 class="text-xl font-bold text-indigo-700 mb-2">4. Filter Chain (Request)</h3><p class="text-slate-600">Before the request reaches the servlet, it must pass through a chain of Filters. Filters are used for cross-cutting concerns. Examples include a security filter that checks for a valid session, a logging filter that records request details, or a filter that decompresses incoming data. Each filter can inspect or modify the request before passing it to the next filter in the chain via `chain.doFilter()`.</p></div>
-                        <div id="desc-5" class="description-content hidden"><h3 class="text-xl font-bold text-rose-700 mb-2">5. Servlet `service()` Method</h3><p class="text-slate-600">Once the request passes all filters, the container calls the `service()` method of the target Servlet instance. The default `HttpServlet.service()` implementation reads the request method (GET, POST, etc.) and calls the corresponding `doGet()`, `doPost()` method. This is where your core application logic resides.</p></div>
-                        <div id="desc-6" class="description-content hidden"><h3 class="text-xl font-bold text-rose-700 mb-2">6. Servlet Creates Response</h3><p class="text-slate-600">Inside your `doGet()` or `doPost()` method, you process the request. This might involve querying a database, calling other services, and preparing data. Finally, you use the `HttpServletResponse` object to build the response. You set the status code (e.g., 200 OK), content type (`application/json`), headers, and write the response body (e.g., JSON or HTML).</p></div>
-                        <div id="desc-7" class="description-content hidden"><h3 class="text-xl font-bold text-indigo-700 mb-2">7. Filter Chain (Response)</h3><p class="text-slate-600">After the servlet finishes, the response travels back through the same filter chain, but in reverse order. This allows filters to process the outgoing response. A common use case is a compression filter that GZIPs the response body to reduce bandwidth.</p></div>
-                        <div id="desc-8" class="description-content hidden"><h3 class="text-xl font-bold text-sky-700 mb-2">8. Client Receives Response</h3><p class="text-slate-600">Finally, the Tomcat Connector serializes the `HttpServletResponse` object back into an HTTP response and sends it over the network to the client. The browser then parses this response and renders the result to the user.</p></div>
+                        <div id="desc-1" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-sky-700 mb-2">1. Client Request</h3>
+                            <p class="text-slate-600">Everything starts here. A user interacts with a browser, which
+                                constructs an HTTP request. This request includes the method (GET, POST), the target URL
+                                (`/users/123`), headers (like `Accept`, `User-Agent`), and an optional body (for POST
+                                requests).</p>
+                        </div>
+                        <div id="desc-2" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-slate-700 mb-2">2. Tomcat Connector</h3>
+                            <p class="text-slate-600">Tomcat's Connector component is a network listener. It's bound to
+                                a specific port (e.g., 8080 for HTTP, 8443 for HTTPS). It accepts the raw TCP connection
+                                from the client, parses the HTTP request, and creates `HttpServletRequest` and
+                                `HttpServletResponse` objects.</p>
+                        </div>
+                        <div id="desc-3" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-slate-700 mb-2">3. URL Mapping</h3>
+                            <p class="text-slate-600">The container inspects the request URL. First, it matches the
+                                hostname to a virtual Host. Then, it uses the path to find the correct web application
+                                (Context). Finally, it consults the application's deployment descriptor (`web.xml` or
+                                `@WebServlet` annotations) to find which Servlet is mapped to the request's URL pattern
+                                (e.g., `/users/*`).</p>
+                        </div>
+                        <div id="desc-4" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-indigo-700 mb-2">4. Filter Chain (Request)</h3>
+                            <p class="text-slate-600">Before the request reaches the servlet, it must pass through a
+                                chain of Filters. Filters are used for cross-cutting concerns. Examples include a
+                                security filter that checks for a valid session, a logging filter that records request
+                                details, or a filter that decompresses incoming data. Each filter can inspect or modify
+                                the request before passing it to the next filter in the chain via `chain.doFilter()`.
+                            </p>
+                        </div>
+                        <div id="desc-5" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-rose-700 mb-2">5. Servlet `service()` Method</h3>
+                            <p class="text-slate-600">Once the request passes all filters, the container calls the
+                                `service()` method of the target Servlet instance. The default `HttpServlet.service()`
+                                implementation reads the request method (GET, POST, etc.) and calls the corresponding
+                                `doGet()`, `doPost()` method. This is where your core application logic resides.</p>
+                        </div>
+                        <div id="desc-6" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-rose-700 mb-2">6. Servlet Creates Response</h3>
+                            <p class="text-slate-600">Inside your `doGet()` or `doPost()` method, you process the
+                                request. This might involve querying a database, calling other services, and preparing
+                                data. Finally, you use the `HttpServletResponse` object to build the response. You set
+                                the status code (e.g., 200 OK), content type (`application/json`), headers, and write
+                                the response body (e.g., JSON or HTML).</p>
+                        </div>
+                        <div id="desc-7" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-indigo-700 mb-2">7. Filter Chain (Response)</h3>
+                            <p class="text-slate-600">After the servlet finishes, the response travels back through the
+                                same filter chain, but in reverse order. This allows filters to process the outgoing
+                                response. A common use case is a compression filter that GZIPs the response body to
+                                reduce bandwidth.</p>
+                        </div>
+                        <div id="desc-8" class="description-content hidden">
+                            <h3 class="text-xl font-bold text-sky-700 mb-2">8. Client Receives Response</h3>
+                            <p class="text-slate-600">Finally, the Tomcat Connector serializes the `HttpServletResponse`
+                                object back into an HTTP response and sends it over the network to the client. The
+                                browser then parses this response and renders the result to the user.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Core Components Section -->
-            <section id="components" class="content-section">
+            <section id="components" class="tab-content">
                 <h2 class="text-3xl font-bold mb-4 text-slate-900">Core Components Deep Dive</h2>
-                 <p class="mb-6 text-lg text-slate-600">
-                   Java web applications are built from a few key component types. This section provides code examples and explanations for the most important ones: Servlets and Filters. Understanding their lifecycle and purpose is fundamental to building robust backend services.
+                <p class="mb-6 text-lg text-slate-600">
+                    Java web applications are built from a few key component types. This section provides code examples
+                    and explanations for the most important ones: Servlets and Filters. Understanding their lifecycle
+                    and purpose is fundamental to building robust backend services.
                 </p>
 
                 <div class="space-y-8">
                     <!-- Servlets -->
                     <div class="bg-white p-6 rounded-xl shadow-md">
                         <h3 class="text-2xl font-bold mb-3 text-rose-700">Servlets</h3>
-                        <p class="mb-4 text-slate-600">A Servlet is a Java class that handles requests and generates responses. The container manages a single instance of each servlet and invokes it to handle multiple concurrent requests in separate threads. This makes thread safety a critical concern.</p>
+                        <p class="mb-4 text-slate-600">A Servlet is a Java class that handles requests and generates
+                            responses. The container manages a single instance of each servlet and invokes it to handle
+                            multiple concurrent requests in separate threads. This makes thread safety a critical
+                            concern.</p>
                         <h4 class="font-semibold mb-2">Servlet Lifecycle:</h4>
                         <ul class="list-disc list-inside space-y-1 mb-4 text-slate-600">
-                            <li><strong class="font-semibold">`init()`:</strong> Called once by the container when the servlet is first loaded. Used for one-time setup (e.g., loading configuration, initializing resources).</li>
-                            <li><strong class="font-semibold">`service()`:</strong> Called for every incoming request. Dispatches to `doGet()`, `doPost()`, etc. This is where your logic lives.</li>
-                            <li><strong class="font-semibold">`destroy()`:</strong> Called once when the container is shutting down or undeploying the app. Used to clean up resources.</li>
+                            <li><strong class="font-semibold">`init()`:</strong> Called once by the container when the
+                                servlet is first loaded. Used for one-time setup (e.g., loading configuration,
+                                initializing resources).</li>
+                            <li><strong class="font-semibold">`service()`:</strong> Called for every incoming request.
+                                Dispatches to `doGet()`, `doPost()`, etc. This is where your logic lives.</li>
+                            <li><strong class="font-semibold">`destroy()`:</strong> Called once when the container is
+                                shutting down or undeploying the app. Used to clean up resources.</li>
                         </ul>
                         <h4 class="font-semibold mb-2">Example:</h4>
                         <div class="code-block">
-public class UserServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-      throws ServletException, IOException {
-        
-        String userId = req.getParameter("id");
-        // In a real app, you'd fetch user data from a database
-        String jsonResponse = "{\"userId\": \"" + userId + "\", \"name\": \"Jane Doe\"}";
-        
-        resp.setContentType("application/json");
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.getWriter().write(jsonResponse);
-    }
-}
+                            public class UserServlet extends HttpServlet {
+                            @Override
+                            protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                            throws ServletException, IOException {
+
+                            String userId = req.getParameter("id");
+                            // In a real app, you'd fetch user data from a database
+                            String jsonResponse = "{\"userId\": \"" + userId + "\", \"name\": \"Jane Doe\"}";
+
+                            resp.setContentType("application/json");
+                            resp.setStatus(HttpServletResponse.SC_OK);
+                            resp.getWriter().write(jsonResponse);
+                            }
+                            }
                         </div>
                     </div>
 
                     <!-- Filters -->
                     <div class="bg-white p-6 rounded-xl shadow-md">
                         <h3 class="text-2xl font-bold mb-3 text-indigo-700">Filters</h3>
-                        <p class="mb-4 text-slate-600">A Filter is an object that can intercept and modify requests and responses. They are ideal for cross-cutting concerns like logging, authentication, authorization, and data compression. Filters are chained together, and each one decides whether to pass the request to the next filter in the chain.</p>
+                        <p class="mb-4 text-slate-600">A Filter is an object that can intercept and modify requests and
+                            responses. They are ideal for cross-cutting concerns like logging, authentication,
+                            authorization, and data compression. Filters are chained together, and each one decides
+                            whether to pass the request to the next filter in the chain.</p>
                         <h4 class="font-semibold mb-2">Key Method:</h4>
-                         <ul class="list-disc list-inside space-y-1 mb-4 text-slate-600">
-                            <li><strong class="font-semibold">`doFilter(request, response, chain)`:</strong> The core method. You place your pre-processing logic before `chain.doFilter()` and post-processing logic after it.</li>
+                        <ul class="list-disc list-inside space-y-1 mb-4 text-slate-600">
+                            <li><strong class="font-semibold">`doFilter(request, response, chain)`:</strong> The core
+                                method. You place your pre-processing logic before `chain.doFilter()` and
+                                post-processing logic after it.</li>
                         </ul>
                         <h4 class="font-semibold mb-2">Example: Logging Filter</h4>
                         <div class="code-block">
-public class LoggingFilter implements Filter {
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
-        
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        long startTime = System.currentTimeMillis();
-        
-        System.out.println("Request Received: " + httpRequest.getMethod() + " " + httpRequest.getRequestURI());
+                            public class LoggingFilter implements Filter {
+                            @Override
+                            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                            throws IOException, ServletException {
 
-        // Pass request to the next filter or servlet
-        chain.doFilter(request, response);
-        
-        long duration = System.currentTimeMillis() - startTime;
-        System.out.println("Request Processed in " + duration + "ms");
-    }
-}
+                            HttpServletRequest httpRequest = (HttpServletRequest) request;
+                            long startTime = System.currentTimeMillis();
+
+                            System.out.println("Request Received: " + httpRequest.getMethod() + " " +
+                            httpRequest.getRequestURI());
+
+                            // Pass request to the next filter or servlet
+                            chain.doFilter(request, response);
+
+                            long duration = System.currentTimeMillis() - startTime;
+                            System.out.println("Request Processed in " + duration + "ms");
+                            }
+                            }
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Resource Management Section -->
-            <section id="resources" class="content-section">
+            <section id="resources" class="tab-content">
                 <h2 class="text-3xl font-bold mb-4 text-slate-900">Resource Management</h2>
                 <p class="mb-6 text-lg text-slate-600">
-                    Efficiently managing resources like threads and database connections is crucial for building scalable, high-performance applications. Creating these resources is expensive. Resource pools solve this by creating a set of reusable objects, dramatically improving performance under load.
+                    Efficiently managing resources like threads and database connections is crucial for building
+                    scalable, high-performance applications. Creating these resources is expensive. Resource pools solve
+                    this by creating a set of reusable objects, dramatically improving performance under load.
                 </p>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Thread Pool -->
                     <div class="bg-white p-6 rounded-xl shadow-md">
                         <h3 class="text-2xl font-bold mb-3 text-amber-700">Thread Pools</h3>
-                        <p class="mb-4 text-slate-600">Instead of creating a new OS thread for every single request (which is very slow), the application server (Tomcat) maintains a pool of worker threads. When a request arrives, it is assigned to an available thread from the pool. Once the request is complete, the thread is returned to the pool to be used for another request. This is a core feature you get for free with any servlet container.</p>
+                        <p class="mb-4 text-slate-600">Instead of creating a new OS thread for every single request
+                            (which is very slow), the application server (Tomcat) maintains a pool of worker threads.
+                            When a request arrives, it is assigned to an available thread from the pool. Once the
+                            request is complete, the thread is returned to the pool to be used for another request. This
+                            is a core feature you get for free with any servlet container.</p>
                     </div>
                     <!-- Connection Pool -->
                     <div class="bg-white p-6 rounded-xl shadow-md">
                         <h3 class="text-2xl font-bold mb-3 text-cyan-700">Connection Pools</h3>
-                        <p class="mb-4 text-slate-600">Establishing a database connection is a slow process involving network handshakes and authentication. A connection pool (using libraries like HikariCP or C3P0) pre-establishes a set of DB connections. Your application code "borrows" a connection from the pool, uses it, and then "returns" it. This is one of the most important performance optimizations in a database-driven application.</p>
+                        <p class="mb-4 text-slate-600">Establishing a database connection is a slow process involving
+                            network handshakes and authentication. A connection pool (using libraries like HikariCP or
+                            C3P0) pre-establishes a set of DB connections. Your application code "borrows" a connection
+                            from the pool, uses it, and then "returns" it. This is one of the most important performance
+                            optimizations in a database-driven application.</p>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-md mt-8">
                     <h3 class="text-xl font-bold mb-3 text-slate-900">Visualizing the Impact</h3>
-                    <p class="mb-4 text-slate-600">The chart below simulates the time taken to handle 10 requests. Notice the significant initial overhead without pooling, as each request must wait for a new resource to be created. With pooling, only the very first requests might see a tiny delay while the pool is initialized.</p>
+                    <p class="mb-4 text-slate-600">The chart below simulates the time taken to handle 10 requests.
+                        Notice the significant initial overhead without pooling, as each request must wait for a new
+                        resource to be created. With pooling, only the very first requests might see a tiny delay while
+                        the pool is initialized.</p>
                     <div class="chart-container">
                         <canvas id="poolChart"></canvas>
                     </div>
                 </div>
             </section>
-            
+
             <!-- Security Section -->
-            <section id="security" class="content-section">
+            <section id="security" class="tab-content">
                 <h2 class="text-3xl font-bold mb-4 text-slate-900">Security: SSL/TLS and Certificates</h2>
-                 <p class="mb-6 text-lg text-slate-600">
-                    Securing web traffic with HTTPS is non-negotiable. This is achieved using the SSL/TLS protocol, which relies on digital certificates to establish trust and encrypt data. This section breaks down how the SSL/TLS handshake works to create a secure communication channel.
+                <p class="mb-6 text-lg text-slate-600">
+                    Securing web traffic with HTTPS is non-negotiable. This is achieved using the SSL/TLS protocol,
+                    which relies on digital certificates to establish trust and encrypt data. This section breaks down
+                    how the SSL/TLS handshake works to create a secure communication channel.
                 </p>
-                 <div class="bg-white p-6 rounded-xl shadow-md">
+                <div class="bg-white p-6 rounded-xl shadow-md">
                     <h3 class="text-xl font-bold mb-3 text-slate-900">What are Certificates?</h3>
-                    <p class="mb-4 text-slate-600">A digital certificate (like an SSL certificate) is a data file that binds a cryptographic key to an organization's details. It's issued by a trusted third party called a Certificate Authority (CA). When your browser connects to a website over HTTPS, the server presents this certificate. Your browser checks if it trusts the CA that issued the certificate. If it does, it can be sure it's talking to the legitimate server and not an imposter.</p>
+                    <p class="mb-4 text-slate-600">A digital certificate (like an SSL certificate) is a data file that
+                        binds a cryptographic key to an organization's details. It's issued by a trusted third party
+                        called a Certificate Authority (CA). When your browser connects to a website over HTTPS, the
+                        server presents this certificate. Your browser checks if it trusts the CA that issued the
+                        certificate. If it does, it can be sure it's talking to the legitimate server and not an
+                        imposter.</p>
                     <h3 class="text-xl font-bold mb-3 text-slate-900">Simplified SSL/TLS Handshake</h3>
-                     <div id="handshake-diagram" class="space-y-4">
-                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-1"><strong>1. Client Hello:</strong> Client sends its SSL/TLS version and supported cipher suites.</div>
-                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-2"><strong>2. Server Hello:</strong> Server picks a cipher suite, sends back its SSL Certificate (containing its public key).</div>
-                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-3"><strong>3. Client Verification & Key Exchange:</strong> Client verifies the certificate. It then generates a symmetric session key, encrypts it with the server's public key, and sends it to the server.</div>
-                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-4"><strong>4. Server Decryption:</strong> Server uses its private key to decrypt the session key.</div>
-                        <div class="interactive-diagram-item p-4 bg-green-50 rounded-lg border-l-4 border-green-500" data-target="h-desc-5"><strong>5. Secure Communication:</strong> Both client and server now have the same symmetric session key. All further communication is encrypted using this key.</div>
+                    <div id="handshake-diagram" class="space-y-4">
+                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-1">
+                            <strong>1. Client Hello:</strong> Client sends its SSL/TLS version and supported cipher
+                            suites.</div>
+                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-2">
+                            <strong>2. Server Hello:</strong> Server picks a cipher suite, sends back its SSL
+                            Certificate (containing its public key).</div>
+                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-3">
+                            <strong>3. Client Verification & Key Exchange:</strong> Client verifies the certificate. It
+                            then generates a symmetric session key, encrypts it with the server's public key, and sends
+                            it to the server.</div>
+                        <div class="interactive-diagram-item p-4 bg-slate-50 rounded-lg" data-target="h-desc-4">
+                            <strong>4. Server Decryption:</strong> Server uses its private key to decrypt the session
+                            key.</div>
+                        <div class="interactive-diagram-item p-4 bg-green-50 rounded-lg border-l-4 border-green-500"
+                            data-target="h-desc-5"><strong>5. Secure Communication:</strong> Both client and server now
+                            have the same symmetric session key. All further communication is encrypted using this key.
+                        </div>
                     </div>
-                     <div id="handshake-description-panel" class="mt-6 bg-sky-50 p-4 rounded-lg min-h-[100px]">
-                         <p class="text-sky-800">Click on a step above to see more details.</p>
-                     </div>
+                    <div id="handshake-description-panel" class="mt-6 bg-sky-50 p-4 rounded-lg min-h-[100px]">
+                        <p class="text-sky-800">Click on a step above to see more details.</p>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('#main-nav a');
-            const contentSections = document.querySelectorAll('.content-section');
+            const contentSections = document.querySelectorAll('.tab-content');
             const diagramItems = document.querySelectorAll('#request-diagram .interactive-diagram-item');
             const descriptionPanel = document.getElementById('description-panel');
             const handshakeItems = document.querySelectorAll('#handshake-diagram .interactive-diagram-item');
@@ -336,14 +419,14 @@ public class LoggingFilter implements Filter {
             diagramItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const targetId = item.dataset.target;
-                    
+
                     diagramItems.forEach(i => i.classList.remove('selected'));
                     item.classList.add('selected');
 
                     descriptionPanel.querySelectorAll('.description-content').forEach(desc => {
                         desc.classList.add('hidden');
                     });
-                    
+
                     document.getElementById(targetId)?.classList.remove('hidden');
                 });
             });
@@ -375,7 +458,7 @@ public class LoggingFilter implements Filter {
                 new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: Array.from({length: 10}, (_, i) => `Request ${i + 1}`),
+                        labels: Array.from({ length: 10 }, (_, i) => `Request ${i + 1}`),
                         datasets: [{
                             label: 'Time per Request - Without Pool (ms)',
                             data: dataWithoutPool,
@@ -414,4 +497,5 @@ public class LoggingFilter implements Filter {
         });
     </script>
 </body>
+
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reductions - Complexity Classes Guide</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body class="course-layout">
+
+    <aside>
+        <h2>CS Theory Guide</h2>
+        <nav>
+            <ul>
+                <li><a href="Complexity.html" style="color: inherit; text-decoration: none; display: block;">The Big
+                        Picture</a></li>
+                <li><a href="time_complexity.html" style="color: inherit; text-decoration: none; display: block;">Time
+                        Complexity</a></li>
+                <li class="active"><a href="reductions.html"
+                        style="color: inherit; text-decoration: none; display: block;">Reductions</a></li>
+                <li><a href="cook_levin.html" style="color: inherit; text-decoration: none; display: block;">The
+                        Cook-Levin Theorem</a></li>
+                <li><a href="famous_problems.html" style="color: inherit; text-decoration: none; display: block;">Famous
+                        Problems</a></li>
+                <li><a href="millennium_prize.html"
+                        style="color: inherit; text-decoration: none; display: block;">Millennium Prize</a></li>
+                <li style="margin-top: 20px;"><a href="../index.html"
+                        style="color: inherit; text-decoration: none; display: block;">&larr; Back to Dashboard</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <header>
+            <h1>Reductions: The Art of Translation</h1>
+            <p class="description">
+                How do we know a problem is hard? By showing that it's at least as hard as another problem we already
+                know is hard. This technique is called "Reduction".
+            </p>
+        </header>
+
+        <section class="content-section">
+            <h3>What is a Reduction?</h3>
+            <p>
+                Imagine you want to solve Problem A. You don't know how to solve it directly, but you have a magic black
+                box (algorithm) that solves Problem B. If you can transform your input for Problem A into an input for
+                Problem B, use the box, and then transform the answer back... you've just "Reduced A to B".
+            </p>
+
+            <div class="illustration">
+                Problem A Input <span class="arrow">&rarr;</span> Convert <span class="arrow">&rarr;</span> Problem B
+                Input <span class="arrow">&rarr;</span> Solver for B <span class="arrow">&rarr;</span> Answer
+            </div>
+
+            <p>
+                Notation: <strong>A &le;<sub>P</sub> B</strong> means "A reduces to B in polynomial time".
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h3>Why is this useful?</h3>
+            <p><strong>To prove hardness:</strong></p>
+            <p>
+                If we know <strong>A is Hard</strong>, and we show that <strong>A &le;<sub>P</sub> B</strong>, then
+                <strong>B must also be Hard</strong>. <br>
+                (Because if B were easy, we could use the reduction to solve A easily, which is a contradiction.)
+            </p>
+            <p><strong>To find solutions:</strong></p>
+            <p>
+                If we know <strong>B is Easy</strong>, and <strong>A &le;<sub>P</sub> B</strong>, then <strong>A is
+                    Easy</strong>.
+            </p>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

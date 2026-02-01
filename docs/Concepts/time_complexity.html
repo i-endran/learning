@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Complexity - Complexity Classes Guide</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body class="course-layout">
+
+    <aside>
+        <h2>CS Theory Guide</h2>
+        <nav>
+            <ul>
+                <li><a href="Complexity.html" style="color: inherit; text-decoration: none; display: block;">The Big
+                        Picture</a></li>
+                <li class="active"><a href="time_complexity.html"
+                        style="color: inherit; text-decoration: none; display: block;">Time Complexity</a></li>
+                <li><a href="reductions.html"
+                        style="color: inherit; text-decoration: none; display: block;">Reductions</a></li>
+                <li><a href="cook_levin.html" style="color: inherit; text-decoration: none; display: block;">The
+                        Cook-Levin Theorem</a></li>
+                <li><a href="famous_problems.html" style="color: inherit; text-decoration: none; display: block;">Famous
+                        Problems</a></li>
+                <li><a href="millennium_prize.html"
+                        style="color: inherit; text-decoration: none; display: block;">Millennium Prize</a></li>
+                <li style="margin-top: 20px;"><a href="../index.html"
+                        style="color: inherit; text-decoration: none; display: block;">&larr; Back to Dashboard</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <header>
+            <h1>Time Complexity & Big O</h1>
+            <p class="description">
+                Understanding how algorithms scale efficiently is at the heart of computer science. We use "Big O"
+                notation to classify algorithms by how their running time or space requirements grow as the input size
+                grows.
+            </p>
+        </header>
+
+        <section class="content-section">
+            <h3>Common Complexity Classes</h3>
+            <p>From fastest to slowest growth rates.</p>
+
+            <table class="complexity-table">
+                <thead>
+                    <tr>
+                        <th>Notation</th>
+                        <th>Name</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>O(1)</code></td>
+                        <td>Constant Time</td>
+                        <td>Accessing an array element by index.</td>
+                    </tr>
+                    <tr>
+                        <td><code>O(log n)</code></td>
+                        <td>Logarithmic Time</td>
+                        <td>Binary Search.</td>
+                    </tr>
+                    <tr>
+                        <td><code>O(n)</code></td>
+                        <td>Linear Time</td>
+                        <td>Simple iteration (for loop).</td>
+                    </tr>
+                    <tr>
+                        <td><code>O(n log n)</code></td>
+                        <td>Linearithmic Time</td>
+                        <td>Efficient sorting (Merge Sort, Quick Sort).</td>
+                    </tr>
+                    <tr>
+                        <td><code>O(n^2)</code></td>
+                        <td>Quadratic Time</td>
+                        <td>Nested loops (Bubble Sort).</td>
+                    </tr>
+                    <tr>
+                        <td><code>O(2^n)</code></td>
+                        <td>Exponential Time</td>
+                        <td>Recursive Fibonacci (naive).</td>
+                    </tr>
+                    <tr>
+                        <td><code>O(n!)</code></td>
+                        <td>Factorial Time</td>
+                        <td>Traveling Salesperson (Brute Force).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="content-section">
+            <h3>Why Polynomial Matters (The "P" in P vs NP)</h3>
+            <p>
+                In complexity theory, we draw a major line in the sand between <strong>Polynomial Time</strong>
+                (O(n<sup>k</sup>) for any constant k) and <strong>Exponential Time</strong>.
+            </p>
+            <p>
+                Algorithms that run in polynomial time are generally considered "efficient" or "feasible" for large
+                inputs. Algorithms that take exponential time become impractical very quickly as input size increases.
+            </p>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

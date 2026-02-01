@@ -1,0 +1,427 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Global Styles & Variables */
+:root {
+    /* Shared Palette (Tailwind-ish & Custom) */
+    --primary-blue: #0f172a;
+    /* Slate 900 */
+    --accent-blue: #3b82f6;
+    /* Blue 500 */
+    --sidebar-text: #334155;
+    /* Slate 700 */
+    --bg-light: #f8fafc;
+    /* Slate 50 */
+
+    /* Concept Course Colors */
+    --p-bg: #dcfce7;
+    --p-border: #86efac;
+    --p-text: #166534;
+
+    --np-bg: #fef9c3;
+    --np-border: #fde047;
+    --np-text: #854d0e;
+
+    --npc-bg: #fee2e2;
+    --npc-border: #fca5a5;
+    --npc-text: #991b1b;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1e293b;
+}
+
+.course-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* =========================================
+   Index Page Styles
+   ========================================= */
+.course-card {
+    transition: all 0.2s ease-in-out;
+}
+
+.course-card:hover {
+    transform: translateY(-4px);
+}
+
+/* =========================================
+   Sidebar Layout (Shared by Concepts & Java)
+   ========================================= */
+aside {
+    width: 240px;
+    border-right: 1px solid #e2e8f0;
+    padding: 20px 0;
+    flex-shrink: 0;
+    background: white;
+}
+
+/* Base Nav Styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Concept Course Specific Nav */
+aside h2 {
+    font-size: 1.1rem;
+    color: var(--primary-blue);
+    padding: 0 20px;
+    margin-bottom: 25px;
+}
+
+/* Java Course Specific Nav Link (Base styles shared) */
+.nav-link,
+nav li {
+    display: block;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    color: var(--sidebar-text);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+/* Active States */
+.nav-link.active,
+nav li.active {
+    background-color: var(--primary-blue);
+    /* Concepts uses primary-blue */
+    color: white !important;
+    border-radius: 0 4px 4px 0;
+    /* Concepts style */
+}
+
+/* Java overrides for active state color if needed, but unifying to primary-blue is cleaner.
+   Java originally used #0284c7 (Sky 600). Let's stick to the slate/blue theme.
+*/
+
+.nav-link:hover:not(.active),
+nav li:hover:not(.active) {
+    background-color: #f1f5f9;
+}
+
+/* =========================================
+   Main Content Area
+   ========================================= */
+main {
+    flex-grow: 1;
+    background-color: var(--bg-light);
+    padding: 40px;
+    overflow-y: auto;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-top: 0;
+    color: var(--primary-blue);
+}
+
+.description {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 800px;
+}
+
+.content-section {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+/* Java Interactive Toggles */
+/* Note: Java page uses IDs to toggle visibility. 
+   We need to ensure these classes exist. 
+*/
+/* The Java page has .content-section { display: none; } by default in its internal style. 
+   But Concepts page uses .content-section as a layout wrapper that is always visible.
+   WE NEED TO RESOLVE THIS CONFLICT.
+   
+   Solution: Create a specific class for the tabbed interface in Java.
+   Let's call it .tab-content.
+   I will update the Java HTML to use .tab-content instead of just .content-section for hiding.
+*/
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+
+/* =========================================
+   Concept Course Specifics
+   ========================================= */
+/* Diagram Section */
+.diagram-container {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.diagram-title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+/* SVG Styles */
+svg {
+    max-width: 100%;
+    height: auto;
+    font-family: 'Inter', sans-serif;
+}
+
+.class-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.desc-label {
+    font-size: 11px;
+    fill: #475569;
+}
+
+/* Concept Cards Grid */
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid transparent;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #334155;
+    margin-bottom: 0;
+}
+
+.card .badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Card Variants */
+.card.p-class {
+    border-top-color: var(--p-text);
+}
+
+.card.p-class .badge {
+    background: var(--p-bg);
+    color: var(--p-text);
+}
+
+.card.np-class {
+    border-top-color: var(--np-text);
+}
+
+.card.np-class .badge {
+    background: var(--np-bg);
+    color: var(--np-text);
+}
+
+.card.npc-class {
+    border-top-color: var(--npc-text);
+}
+
+.card.npc-class .badge {
+    background: var(--npc-bg);
+    color: var(--npc-text);
+}
+
+.machine-section {
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 30px;
+}
+
+.machine-col {
+    flex: 1;
+}
+
+.machine-col strong {
+    color: #1e40af;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.machine-col p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #1e293b;
+}
+
+/* Time Complexity Table */
+.complexity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.complexity-table th,
+.complexity-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.complexity-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+}
+
+code {
+    background-color: #f1f5f9;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    color: #0ea5e9;
+}
+
+/* Reductions */
+.illustration {
+    background: #f1f5f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.arrow {
+    font-size: 24px;
+    color: #64748b;
+    margin: 0 10px;
+}
+
+/* Cook-Levin */
+.theorem-box {
+    background-color: #f0f9ff;
+    border-left: 4px solid #0ea5e9;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #0c4a6e;
+}
+
+/* Famous Problems */
+.problem-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.problem-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.problem-card h4 {
+    margin-top: 0;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+/* Millennium Prize */
+.prize-money {
+    font-size: 3rem;
+    color: #16a34a;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prize-text {
+    text-align: center;
+    font-style: italic;
+    color: #64748b;
+}
+
+
+/* =========================================
+   Java Refresher Specifics
+   ========================================= */
+.interactive-diagram-item {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.interactive-diagram-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-diagram-item.selected {
+    border-color: #0ea5e9;
+    box-shadow: 0 6px 16px rgba(14, 165, 233, 0.3);
+    transform: translateY(-2px);
+}
+
+.code-block {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    font-size: 0.875rem;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    max-height: 400px;
+}
+
+@media (min-width: 768px) {
+    .chart-container {
+        height: 350px;
+    }
+}

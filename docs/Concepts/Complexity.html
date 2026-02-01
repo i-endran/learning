@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complexity Classes Guide - P vs NP</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body class="course-layout">
+
+    <aside>
+        <h2>CS Theory Guide</h2>
+        <nav>
+            <ul>
+                <li class="active"><a href="Complexity.html"
+                        style="color: inherit; text-decoration: none; display: block;">The Big Picture</a></li>
+                <li><a href="time_complexity.html" style="color: inherit; text-decoration: none; display: block;">Time
+                        Complexity</a></li>
+                <li><a href="reductions.html"
+                        style="color: inherit; text-decoration: none; display: block;">Reductions</a></li>
+                <li><a href="cook_levin.html" style="color: inherit; text-decoration: none; display: block;">The
+                        Cook-Levin Theorem</a></li>
+                <li><a href="famous_problems.html" style="color: inherit; text-decoration: none; display: block;">Famous
+                        Problems</a></li>
+                <li><a href="millennium_prize.html"
+                        style="color: inherit; text-decoration: none; display: block;">Millennium Prize</a></li>
+                <li style="margin-top: 20px;"><a href="../index.html"
+                        style="color: inherit; text-decoration: none; display: block;">&larr; Back to Dashboard</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <header>
+            <h1>The Big Picture: P vs NP</h1>
+            <p class="description">
+                A high-level overview of computational complexity classes. This defines the boundaries of what computers
+                can solve efficiently versus what they can only check efficiently.
+            </p>
+        </header>
+
+        <section class="machine-section">
+            <div class="machine-col">
+                <strong>Deterministic (Standard Computer)</strong>
+                <p>A machine that follows one single path of execution. If faced with a choice, it must check each
+                    option one by one. This represents real-world computers.</p>
+            </div>
+            <div style="width: 1px; background: #dbeafe;"></div>
+            <div class="machine-col">
+                <strong>Non-Deterministic (Theoretical Magic)</strong>
+                <p>A theoretical machine that can "branch" into multiple paths simultaneously. If faced with a choice,
+                    it checks all options at the exact same instant.</p>
+            </div>
+        </section>
+
+        <section class="diagram-container">
+            <div class="diagram-title">Euler Diagram: The Assumption that P &ne; NP</div>
+
+            <svg width="600" height="350" viewBox="0 0 600 350">
+                <ellipse cx="300" cy="175" rx="280" ry="160" fill="#fef9c3" stroke="#fde047" stroke-width="2" />
+                <text x="300" y="40" text-anchor="middle" class="class-label" fill="#854d0e">NP (Nondeterministic
+                    Polynomial)</text>
+                <text x="300" y="55" text-anchor="middle" class="desc-label">Easy to VERIFY</text>
+
+                <circle cx="300" cy="240" r="80" fill="#dcfce7" stroke="#86efac" stroke-width="2" />
+                <text x="300" y="245" text-anchor="middle" class="class-label" fill="#166534">P (Polynomial)</text>
+                <text x="300" y="260" text-anchor="middle" class="desc-label">Easy to SOLVE</text>
+
+                <ellipse cx="300" cy="110" rx="100" ry="50" fill="#fee2e2" stroke="#fca5a5" stroke-width="2" />
+                <text x="300" y="115" text-anchor="middle" class="class-label" fill="#991b1b">NP-Complete</text>
+                <text x="300" y="130" text-anchor="middle" class="desc-label">The Hardest Problems</text>
+
+                <path d="M 400 110 Q 550 110 550 50" stroke="#94a3b8" stroke-width="1" fill="none"
+                    stroke-dasharray="4" />
+                <text x="550" y="40" text-anchor="end" font-size="10" fill="#64748b">NP-Hard extends beyond NP</text>
+            </svg>
+        </section>
+
+        <div class="concepts-grid">
+
+            <div class="card p-class">
+                <h3>P <span class="badge">Easy</span></h3>
+                <p><strong>Polynomial Time.</strong> Problems that can be solved reasonably fast by a real computer
+                    (e.g., Sorting, Multiplication). <br><br><em>If you double the input, the time takes a predictable
+                        step up.</em></p>
+            </div>
+
+            <div class="card np-class">
+                <h3>NP <span class="badge">Checkable</span></h3>
+                <p><strong>Nondeterministic Polynomial.</strong> Problems where the solution is hard to find, but easy
+                    to verify if you are given one (e.g., Sudoku, Factoring).<br><br><em>Includes all of P.</em></p>
+            </div>
+
+            <div class="card npc-class">
+                <h3>NP-Complete <span class="badge">The Hardest</span></h3>
+                <p>The "Ultimate" problems in NP. If you find a fast shortcut for one, you solve them all. (e.g.,
+                    Traveling Salesperson, 3-SAT).<br><br><em>The bridge between P and NP.</em></p>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
