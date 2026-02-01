@@ -8,15 +8,35 @@
     <link rel="stylesheet" href="../../assets/style.css">
 </head>
 
-<body>
+<body class="bg-slate-50 min-h-screen">
 
-    <header>
-        <div class="container" style="max-width: 900px; margin: 0 auto; padding: 40px;">
-            <h1>Graph Algorithms Crash Course</h1>
-            <p class="description">A quick reference guide for mastering BFS, DFS, Dijkstra, Bellman-Ford, Topological
-                Sort, and Union-Find for competitive programming and technical interviews.</p>
+    <div class="course-layout">
+        <!-- Sidebar -->
+        <aside class="overflow-y-auto hidden md:block">
+            <nav>
+                <h2>Graph Algorithms</h2>
+                <ul>
+                    <li><a href="../../index.html" class="nav-link">← Back to Home</a></li>
+                    <li><a href="#core-algos" class="nav-link">1. Core Algorithms</a></li>
+                    <li><a href="#templates" class="nav-link">2. Templates</a></li>
+                    <li><a href="#complexity" class="nav-link">3. Complexity</a></li>
+                    <li><a href="#strategy" class="nav-link">4. Strategy Guide</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-            <section class="content-section">
+        <!-- Main Content -->
+        <main class="w-full">
+            <header class="mb-8 border-b border-gray-200 pb-6">
+                <center>
+                    <h1 class="text-3xl font-bold text-slate-900">Graph Algorithms Crash Course</h1>
+                </center>
+                <p class="mt-2 text-slate-600 text-center">A quick reference guide for mastering BFS, DFS, Dijkstra,
+                    Bellman-Ford, Topological
+                    Sort, and Union-Find for competitive programming and technical interviews.</p>
+            </header>
+
+            <section class="content-section" id="core-algos">
                 <h2>1. The Core Algorithms: At a Glance</h2>
                 <table class="complexity-table">
                     <thead>
@@ -68,7 +88,7 @@
                 </table>
             </section>
 
-            <section class="content-section">
+            <section class="content-section" id="templates">
                 <h2>2. Implementation Templates (Python)</h2>
 
                 <h3>BFS (Breadth-First Search)</h3>
@@ -202,7 +222,7 @@
 
             </section>
 
-            <section class="content-section">
+            <section class="content-section" id="complexity">
                 <h2>3. Complexity Cheat Sheet</h2>
                 <table class="complexity-table">
                     <thead>
@@ -254,31 +274,62 @@
                 </table>
             </section>
 
-            <section class="content-section">
+            <section class="content-section" id="strategy">
                 <h2>4. LeetCode Strategy Guide</h2>
                 <ul class="strategy-list" style="list-style: none; padding: 0;">
                     <li style="margin-bottom: 15px;">✅ <strong>Unweighted Shortest Path?</strong> → Use
-                        <strong>BFS</strong>. Do not use DFS.</li>
+                        <strong>BFS</strong>. Do not use DFS.
+                    </li>
                     <li style="margin-bottom: 15px;">✅ <strong>Weighted Shortest Path?</strong> → Use
-                        <strong>Dijkstra</strong>.</li>
+                        <strong>Dijkstra</strong>.
+                    </li>
                     <li style="margin-bottom: 15px;">✅ <strong>Searching / Connectivity?</strong> → Use
-                        <strong>DFS</strong> (Easier to write recursively).</li>
+                        <strong>DFS</strong> (Easier to write recursively).
+                    </li>
                     <li style="margin-bottom: 15px;">✅ <strong>Negative Weights?</strong> → Use
-                        <strong>Bellman-Ford</strong>.</li>
+                        <strong>Bellman-Ford</strong>.
+                    </li>
                     <li style="margin-bottom: 15px;">✅ <strong>Course Schedule / Prerequsites?</strong> → Use
-                        <strong>Topological Sort</strong>.</li>
+                        <strong>Topological Sort</strong>.
+                    </li>
                     <li style="margin-bottom: 15px;">✅ <strong>Grouping / Connected Components?</strong> → Use
-                        <strong>Union-Find</strong>.</li>
+                        <strong>Union-Find</strong>.
+                    </li>
                     <li style="margin-bottom: 15px;">✅ <strong>Grid/Matrix Input?</strong> → Use direction array:
-                        <code>[(0,1), (0,-1), (1,0), (-1,0)]</code>.</li>
+                        <code>[(0,1), (0,-1), (1,0), (-1,0)]</code>.
+                    </li>
                 </ul>
             </section>
 
             <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: #777;">
                 <p>Prepared for LeetCode Interview Prep</p>
             </footer>
-        </div>
-    </header>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section.content-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

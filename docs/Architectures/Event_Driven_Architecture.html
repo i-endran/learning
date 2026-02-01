@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Driven Architecture - Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 min-h-screen">
+    <div class="course-layout">
+        <!-- Sidebar -->
+        <aside class="overflow-y-auto hidden md:block">
+            <nav>
+                <h2>EDA Guide</h2>
+                <ul>
+                    <!-- Navigation links -->
+                    <li><a href="../index.html" class="nav-link">← Back to Home</a></li>
+                    <li><a href="#core-concepts" class="nav-link">1. Core Concepts</a></li>
+                    <li><a href="#implementations" class="nav-link">2. Ways to Implement</a></li>
+                    <li><a href="#comparison" class="nav-link">3. Comparison Table</a></li>
+                    <li><a href="#when-to-use" class="nav-link">4. When to Use</a></li>
+                    <li><a href="#example-flow" class="nav-link">5. Example: Order Flow</a></li>
+                    <li><a href="#interview-tips" class="nav-link">6. Interview Tips</a></li>
+                    <li><a href="#checklist" class="nav-link">7. Checklist</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full">
+            <header class="mb-8 border-b border-gray-200 pb-6">
+                <center>
+                    <h1 class="text-3xl font-bold text-slate-900">Event-Driven Architecture (EDA)</h1>
+                </center>
+
+                <div class="card p-class mt-6">
+                    <strong>Goal:</strong> Master Pub-Sub, Observer patterns, and distributed system design strategies.
+                </div>
+            </header>
+
+            <section class="content-section" id="core-concepts">
+                <h2>1. Core Concepts</h2>
+
+                <h3>Observer Pattern (Design Pattern)</h3>
+                <ul>
+                    <li><strong>Level:</strong> Code-level (in-process).</li>
+                    <li><strong>Definition:</strong> One-to-many dependency between objects. Subject notifies observers
+                        when state changes.</li>
+                    <li><strong>Example:</strong> UI button click → triggers callbacks (<code>onClick</code>).</li>
+                    <li><strong>Traits:</strong>
+                        <ul>
+                            <li>Tight coupling (observers tied to subject’s interface).</li>
+                            <li>Usually synchronous, single process.</li>
+                            <li>No external infra required.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="card p-class mt-4">
+                    <strong>Good to know for interviews:</strong> This is the foundation of UI programming,
+                    often asked in OOP/design pattern rounds.
+                </div>
+
+                <h3>Publish–Subscribe (Messaging Pattern)</h3>
+                <ul>
+                    <li><strong>Level:</strong> Integration-level (services/apps).</li>
+                    <li><strong>Definition:</strong> Publisher emits messages to a topic/channel; subscribers consume
+                        asynchronously. Publishers don’t know who listens.</li>
+                    <li><strong>Example:</strong> Kafka topic <code>OrderPlaced</code> consumed by Inventory and
+                        Notification services.</li>
+                    <li><strong>Traits:</strong>
+                        <ul>
+                            <li>Loose coupling.</li>
+                            <li>Supports async and distributed systems.</li>
+                            <li>Needs broker (Kafka, RabbitMQ, Pulsar, SNS/SQS).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="card p-class mt-4">
+                    <strong>Good to know for interviews:</strong> Often used as a stepping stone when asked
+                    <em>"How do you decouple microservices?"</em>
+                </div>
+
+                <h3>Event-Driven Architecture (EDA)</h3>
+                <ul>
+                    <li><strong>Level:</strong> System-level architecture.</li>
+                    <li><strong>Definition:</strong> Architectural style where events are the main communication
+                        mechanism. Services produce, publish, and react to events.</li>
+                    <li><strong>Example:</strong> E-commerce → <code>OrderPlaced</code> drives Inventory, Payment,
+                        Notification, Analytics.</li>
+                    <li><strong>Traits:</strong>
+                        <ul>
+                            <li>Very loose coupling.</li>
+                            <li>Enables scalability, resilience, extensibility.</li>
+                            <li>Built on top of patterns like pub-sub.</li>
+                            <li>Supports event replay, event sourcing, CQRS.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="card p-class mt-4">
+                    <strong>Good to know for interviews:</strong> FAANG often tests how you handle
+                    <strong>scalability, resilience, and loose coupling</strong> — EDA is a go-to answer.
+                </div>
+            </section>
+
+            <section class="content-section" id="implementations">
+                <h2>2. Ways to Implement EDA</h2>
+
+                <h3>1. Pub-Sub</h3>
+                <p>Common, simplest. Producer publishes → broker → consumers subscribe.</p>
+
+                <h3>2. Event Streaming</h3>
+                <p>Events stored as immutable logs. Consumers replay events at their own pace. Example: Kafka, Redpanda.
+                </p>
+
+                <h3>3. Event Sourcing</h3>
+                <p>Persist all events, not just state. System state = replay of events. Usually paired with CQRS.</p>
+
+                <h3>4. Direct Event Notification</h3>
+                <p>Services send events via callbacks/webhooks (no broker). Lightweight, less scalable.</p>
+
+                <h3>5. Choreography vs Orchestration</h3>
+                <ul>
+                    <li><strong>Choreography:</strong> Services react to each other’s events (decentralized).</li>
+                    <li><strong>Orchestration:</strong> Central coordinator drives the workflow (not pure EDA).</li>
+                </ul>
+            </section>
+
+            <section class="content-section" id="comparison">
+                <h2>3. EDA vs Pub-Sub vs Observer (Comparison Table)</h2>
+                <div class="overflow-x-auto">
+                    <table class="complexity-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Observer Pattern</th>
+                                <th>Pub-Sub Messaging</th>
+                                <th>Event-Driven Architecture</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Level</strong></td>
+                                <td>Design pattern (code)</td>
+                                <td>Messaging pattern</td>
+                                <td>System-level architecture</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scope</strong></td>
+                                <td>In-process</td>
+                                <td>Across apps/services</td>
+                                <td>Entire distributed system</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coupling</strong></td>
+                                <td>Tight</td>
+                                <td>Loose (via broker)</td>
+                                <td>Very loose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sync/Async</strong></td>
+                                <td>Mostly sync</td>
+                                <td>Mostly async</td>
+                                <td>Async (eventual consistency)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Infrastructure</strong></td>
+                                <td>None</td>
+                                <td>Broker required</td>
+                                <td>Broker + storage + design</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Example</strong></td>
+                                <td>Button click listener</td>
+                                <td>Kafka topic subscriber</td>
+                                <td>Microservices reacting to business events</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="content-section" id="when-to-use">
+                <h2>4. When to Use EDA</h2>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div class="card p-class">
+                        <h3 class="!mt-0">Best fit:</h3>
+                        <ul>
+                            <li>Systems needing <strong>scalability</strong> (independent services scale separately).
+                            </li>
+                            <li><strong>Loose coupling</strong> is critical.</li>
+                            <li><strong>Eventual consistency</strong> acceptable.</li>
+                            <li><strong>Real-time processing</strong> (IoT, fraud detection, analytics, notifications).
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card npc-class">
+                        <h3 class="!mt-0">Not ideal:</h3>
+                        <ul>
+                            <li>When strong <strong>synchronous consistency</strong> is required.</li>
+                            <li>Simple CRUD apps with minimal integration.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section" id="example-flow">
+                <h2>5. Example: E-commerce Order Flow</h2>
+
+                <h3>Microservices (sync, no EDA)</h3>
+                <ol class="list-decimal pl-6 mb-4">
+                    <li>User places order → Order Service.</li>
+                    <li>Order Service calls Inventory, Payment, Notification synchronously.</li>
+                    <li>Failures block the flow.</li>
+                </ol>
+
+                <h3>EDA (async with events)</h3>
+                <ol class="list-decimal pl-6 mb-4">
+                    <li>Order Service publishes <code>OrderPlaced</code>.</li>
+                    <li>Inventory, Payment, Notification, Analytics independently consume.</li>
+                    <li>Failure in one service doesn’t block others.</li>
+                </ol>
+                <div class="card p-class">
+                    <strong>Note:</strong> Hybrid model often used: Payment is synchronous; other side-effects (email,
+                    analytics) are
+                    async via events.
+                </div>
+            </section>
+
+            <section class="content-section" id="interview-tips">
+                <h2>6. Quick Interview Tips (FAANG-Focused)</h2>
+
+                <div class="card p-class">
+                    <ol class="list-decimal pl-6 space-y-4">
+                        <li>
+                            <strong>Be precise with scope:</strong>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>If asked about <strong>Observer</strong>, keep it in design pattern context (UI,
+                                    callbacks).</li>
+                                <li>If asked about <strong>Pub-Sub</strong>, talk about messaging systems.</li>
+                                <li>If asked about <strong>EDA</strong>, talk at system-level (microservices,
+                                    distributed
+                                    design).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Stress trade-offs:</strong>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li><strong>EDA</strong> = scalable, resilient, but complex (debugging, eventual
+                                    consistency).</li>
+                                <li><strong>Sync APIs</strong> = simple, but tightly coupled.</li>
+                                <li>A <strong>hybrid</strong> is usually best.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Use real-world examples:</strong>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>"Placing an order on Amazon is a classic EDA case: order triggers dozens of services
+                                    asynchronously."</li>
+                                <li>"Facebook likes update asynchronously (EDA), but login is synchronous."</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Mention tooling:</strong>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>Kafka, RabbitMQ, Pulsar, SQS/SNS for messaging.</li>
+                                <li>CQRS + Event Sourcing for advanced use.</li>
+                                <li>Tracing tools (Jaeger, OpenTelemetry) to handle complexity.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Show awareness of pitfalls:</strong>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>Harder debugging (need correlation IDs).</li>
+                                <li>Event duplication/out-of-order issues.</li>
+                                <li>Eventual consistency not always acceptable.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="content-section" id="checklist">
+                <h2>7. FAANG-Level "Know This" Checklist</h2>
+                <div class="card p-class">
+                    <ul class="space-y-2">
+                        <li>✅ Observer = local callbacks (UI, OOP pattern).</li>
+                        <li>✅ Pub-Sub = decoupled messaging via broker.</li>
+                        <li>✅ EDA = architectural style for distributed systems.</li>
+                        <li>✅ EDA can be implemented via pub-sub, event streaming, event sourcing, direct notifications,
+                            choreography.</li>
+                        <li>✅ Hybrid model (sync + async) is common in real-world systems.</li>
+                        <li>✅ Always mention <strong>trade-offs</strong> (coupling, latency, consistency).</li>
+                        <li>✅ Be able to sketch an <strong>e-commerce order flow</strong> with and without EDA.</li>
+                        <li>✅ Know at least one tool (Kafka) in detail for scaling conversations.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: #777;">
+                <p>Prepared for LeetCode Interview Prep</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Simple script to handle active state for sidebar navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section.content-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

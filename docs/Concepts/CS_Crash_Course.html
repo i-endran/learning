@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Crash Course - Learning Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/style.css" rel="stylesheet">
+</head>
+
+<body class="bg-slate-50 min-h-screen">
+    <div class="course-layout">
+        <!-- Sidebar -->
+        <aside class="overflow-y-auto hidden md:block">
+            <nav>
+                <h2>CS Cheat Sheet</h2>
+                <ul>
+                    <li><a href="../index.html" class="nav-link">← Back to Home</a></li>
+                    <li><a href="#os" class="nav-link">1. Operating Systems</a></li>
+                    <li><a href="#dbms" class="nav-link">2. DBMS</a></li>
+                    <li><a href="#networks" class="nav-link">3. Computer Networks</a></li>
+                    <li><a href="#distributed" class="nav-link">4. Distributed Systems</a></li>
+                    <li><a href="#dsa" class="nav-link">5. Data Structures</a></li>
+                    <li><a href="#system-design" class="nav-link">6. System Design</a></li>
+                    <li><a href="#compiler" class="nav-link">7. Compiler/Theory</a></li>
+                    <li><a href="#misc" class="nav-link">8. SE + Misc</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full">
+            <header class="mb-8 border-b border-gray-200 pb-6">
+                <center>
+                    <h1 class="text-3xl font-bold text-slate-900">🧠 Computer Science Interview Cheat Sheet</h1>
+                </center>
+
+                <div class="card p-class mt-6">
+                    <strong>Goal:</strong> Rapid review of core Computer Science concepts for technical interviews.
+                </div>
+            </header>
+
+            <!-- 1. OS -->
+            <section class="content-section" id="os">
+                <h2>1. Operating Systems (OS) 🖥️</h2>
+
+                <h3>Core Concepts 📚</h3>
+                <ul>
+                    <li><strong>Processes & Threads:</strong> <em>Process states</em>, <strong>PCB</strong>, <em>context
+                            switching</em>, <strong>multithreading</strong>, <strong>concurrency</strong>.</li>
+                    <li><strong>Scheduling Algorithms:</strong> <strong>FCFS</strong>, <strong>SJF</strong>,
+                        <strong>RR</strong>, <strong>Priority</strong>, <strong>MLFQ</strong> — know tradeoffs
+                        (<em>throughput</em>, <em>turnaround</em>, <em>starvation</em>).
+                    </li>
+                    <li><strong>Synchronization:</strong> <em>Race conditions</em>, <strong>critical section</strong>,
+                        <strong>mutex</strong>, <strong>semaphores</strong>, <strong>monitors</strong>,
+                        <strong>deadlock</strong> (4 conditions, avoidance via <em>Banker’s algorithm</em>).
+                    </li>
+                    <li><strong>Memory Management:</strong> <strong>Paging</strong>, <strong>segmentation</strong>,
+                        <strong>virtual memory</strong>, page replacement (<strong>LRU</strong>, <strong>FIFO</strong>,
+                        <strong>Optimal</strong>), <strong>TLB</strong>.
+                    </li>
+                    <li><strong>File Systems:</strong> <strong>Inodes</strong>, allocation (<em>contiguous</em>,
+                        <em>linked</em>, <em>indexed</em>), <strong>journaling</strong>.
+                    </li>
+                    <li><strong>System Calls & Kernel/User Mode</strong>.</li>
+                </ul>
+
+                <div class="card p-class">
+                    <h4>One-liners 💡</h4>
+                    <ul class="text-sm text-slate-700 space-y-2 mt-2">
+                        <li><strong>Process states:</strong> A process moves through states like <em>new</em>,
+                            <em>ready</em>, <em>running</em>, <em>waiting</em>, <em>terminated</em>.
+                        </li>
+                        <li><strong>PCB:</strong> Process Control Block — OS data structure storing a process's
+                            metadata.
+                        </li>
+                        <li><strong>Context switching:</strong> Saving and restoring CPU registers/state to switch
+                            execution.</li>
+                        <li><strong>Deadlock:</strong> Situation where processes wait forever due to circular resource
+                            holds.</li>
+                        <li><strong>Virtual memory:</strong> Illusion of large contiguous memory using disk backing and
+                            paging.</li>
+                        <li><strong>LRU/FIFO/Optimal:</strong> Page replacement policies.</li>
+                        <li><strong>System call:</strong> Controlled interface for user programs to request kernel
+                            services.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card npc-class mt-4">
+                    <h4>Common Interview Questions ❓</h4>
+                    <ul class="mt-2">
+                        <li>Difference between <strong>process</strong> vs <strong>thread</strong>?</li>
+                        <li>How does <em>context switching</em> work?</li>
+                        <li>What happens on a <em>page fault</em>?</li>
+                        <li>How does the OS handle <strong>deadlocks</strong>?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 2. DBMS -->
+            <section class="content-section" id="dbms">
+                <h2>2. Database Management Systems (DBMS) 💾</h2>
+
+                <h3>Core Concepts 📚</h3>
+                <ul>
+                    <li><strong>Data Models:</strong> <em>Relational model</em>, <strong>schema</strong>, <strong>ER
+                            diagrams</strong>.</li>
+                    <li><strong>SQL Essentials:</strong> <strong>SELECT</strong>, <strong>JOINs</strong>, <strong>GROUP
+                            BY</strong>, <em>subqueries</em>, <strong>indexes</strong>.</li>
+                    <li><strong>Normalization:</strong> <em>1NF → BCNF</em>, anomalies.</li>
+                    <li><strong>Transactions:</strong> <strong>ACID</strong> properties, <em>Commit/Rollback</em>,
+                        <strong>2-Phase Locking</strong>.
+                    </li>
+                    <li><strong>Concurrency Control:</strong> <strong>Locks</strong>, <strong>deadlocks</strong>,
+                        <em>isolation levels</em>.
+                    </li>
+                    <li><strong>Indexing:</strong> <strong>B+ Trees</strong>, <strong>Hash Indexing</strong>.</li>
+                    <li><strong>Storage:</strong> <strong>WAL (Write-Ahead Log)</strong>, <em>checkpoints</em>.</li>
+                </ul>
+
+                <div class="card p-class">
+                    <h4>One-liners 💡</h4>
+                    <ul class="text-sm text-slate-700 space-y-2 mt-2">
+                        <li><strong>ACID:</strong> Atomicity, Consistency, Isolation, Durability.</li>
+                        <li><strong>Index:</strong> Data structure (B+ tree) to speed up lookups at cost of write speed.
+                        </li>
+                        <li><strong>Normalization:</strong> Reducing redundancy to prevent anomalies.</li>
+                        <li><strong>WAL:</strong> Change log ensuring durability before applying to main data.</li>
+                    </ul>
+                </div>
+
+                <div class="card npc-class mt-4">
+                    <h4>Interview Topics 📝</h4>
+                    <ul class="mt-2">
+                        <li>Why use <strong>normalization</strong>?</li>
+                        <li>How do <strong>indexes</strong> speed up queries?</li>
+                        <li>Difference between <strong>SQL</strong> & <strong>NoSQL</strong>?</li>
+                        <li><strong>Inner</strong>, <strong>left</strong>, <strong>right</strong> joins?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3. Networks -->
+            <section class="content-section" id="networks">
+                <h2>3. Computer Networks (CN) 🌐</h2>
+
+                <h3>Core Concepts 📚</h3>
+                <ul>
+                    <li><strong>OSI vs TCP/IP Layers</strong>.</li>
+                    <li><strong>Application Layer:</strong> <strong>HTTP/HTTPS</strong>, <strong>DNS</strong>,
+                        <strong>SMTP</strong>, <strong>FTP</strong>.
+                    </li>
+                    <li><strong>Transport Layer:</strong> <strong>TCP</strong> (3-way handshake), <strong>UDP</strong>.
+                    </li>
+                    <li><strong>Network Layer:</strong> <strong>IP addressing</strong>, <strong>routing</strong>,
+                        <strong>ICMP</strong>.
+                    </li>
+                    <li><strong>Data Link:</strong> <strong>MAC</strong>, <strong>ARP</strong>,
+                        <strong>switching</strong>.
+                    </li>
+                </ul>
+
+                <div class="card np-class mt-4">
+                    <h4>Networking Concepts 🔌</h4>
+                    <ul class="mt-2">
+                        <li><strong>DNS resolution process</strong></li>
+                        <li><strong>NAT</strong>, <strong>Subnetting</strong></li>
+                        <li>Difference between <strong>switch</strong>, <strong>hub</strong>, <strong>router</strong>
+                        </li>
+                        <li><strong>CDN</strong>, <strong>load balancing</strong>, <strong>reverse proxy</strong></li>
+                    </ul>
+                </div>
+
+                <div class="card p-class mt-4">
+                    <h4>One-liners 💡</h4>
+                    <ul class="text-sm text-slate-700 space-y-2 mt-2">
+                        <li><strong>TCP:</strong> Reliable, connection-oriented. <strong>UDP:</strong> Unreliable,
+                            connectionless, fast.</li>
+                        <li><strong>DNS:</strong> Phonebook of the internet (Domain → IP).</li>
+                        <li><strong>HTTPS:</strong> HTTP + SSL/TLS.</li>
+                        <li><strong>Bandwidth vs Latency:</strong> Width of pipe vs Speed of water.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 4. Distributed Systems -->
+            <section class="content-section" id="distributed">
+                <h2>4. Distributed Systems 🔗</h2>
+
+                <h3>Core Concepts 📚</h3>
+                <ul>
+                    <li><strong>CAP Theorem:</strong> <strong>Consistency</strong>, <strong>Availability</strong>,
+                        <strong>Partition tolerance</strong> (choose 2).
+                    </li>
+                    <li><strong>Consensus:</strong> <em>Paxos</em>, <em>Raft</em>.</li>
+                    <li><strong>Consistency Models:</strong> <em>Strong</em>, <em>eventual</em>, <em>causal</em>.</li>
+                    <li><strong>Replication & Sharding:</strong> Lag, horizontal vs vertical scaling.</li>
+                    <li><strong>Fault Tolerance:</strong> Leader election, heartbeats.</li>
+                </ul>
+
+                <div class="card p-class">
+                    <h4>One-liners 💡</h4>
+                    <ul class="text-sm text-slate-700 space-y-2 mt-2">
+                        <li><strong>Scalability:</strong> Horizontal (more machines) vs Vertical (better machines).</li>
+                        <li><strong>Sharding:</strong> Splitting data across nodes.</li>
+                        <li><strong>Message Queues:</strong> Kafka/RabbitMQ for decoupling.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 5. DSA -->
+            <section class="content-section" id="dsa">
+                <h2>5. Data Structures & Algorithms (Quick Ref) 🧮</h2>
+
+                <h3>Core Structures 🧱</h3>
+                <p><strong>Array</strong>, <strong>Linked List</strong>, <strong>Stack</strong>, <strong>Queue</strong>,
+                    <strong>HashMap</strong>, <strong>Tree</strong>, <strong>Graph</strong>, <strong>Heap</strong>,
+                    <strong>Trie</strong>, <strong>Union-Find</strong>.
+                </p>
+
+                <h3>Algorithm Patterns ⚙️</h3>
+                <ul>
+                    <li><strong>Sorting:</strong> <em>Quick</em>, <em>Merge</em>, <em>Heap</em>.</li>
+                    <li><strong>Searching:</strong> <em>Binary</em>, <em>BFS</em>, <em>DFS</em>.</li>
+                    <li><strong>Patterns:</strong> Greedy, DP, Backtracking, Sliding Window, Two Pointers.</li>
+                    <li><strong>Complexity:</strong> Know <strong>Big O</strong>.</li>
+                </ul>
+            </section>
+
+            <!-- 6. System Design -->
+            <section class="content-section" id="system-design">
+                <h2>6. System Design (For MAANG) 🏗️</h2>
+
+                <h3>High-Level 🚀</h3>
+                <ul>
+                    <li>Scalability (load balancing, sharding, caching).</li>
+                    <li>High availability (replication, failover).</li>
+                    <li>Databases: <strong>SQL</strong> vs <strong>NoSQL</strong>.</li>
+                    <li>Queueing: <strong>Kafka</strong>, <strong>SQS</strong>.</li>
+                    <li>Caching: <strong>Redis</strong>, <strong>Memcached</strong>.</li>
+                </ul>
+
+                <div class="card npc-class mt-4">
+                    <h4>Common Designs 🧩</h4>
+                    <ul class="mt-2">
+                        <li>URL shortener</li>
+                        <li>Chat system</li>
+                        <li>Feed system</li>
+                        <li>Rate limiter</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. Compiler -->
+            <section class="content-section" id="compiler">
+                <h2>7. Compiler / Theory of Computation 📐</h2>
+                <ul>
+                    <li><strong>Phases:</strong> Lexical → Syntax → Semantic → Intermediate → Optimization → Code Gen.
+                    </li>
+                    <li><strong>Automata:</strong> DFA/NFA.</li>
+                    <li><strong>Complexity:</strong> P, NP, NP-complete.</li>
+                </ul>
+            </section>
+
+            <!-- 8. Misc -->
+            <section class="content-section" id="misc">
+                <h2>8. Software Engineering + Misc 🧰</h2>
+                <ul>
+                    <li><strong>Git:</strong> Merge vs Rebase.</li>
+                    <li><strong>Testing:</strong> Unit, integration, regression.</li>
+                    <li><strong>API:</strong> REST vs gRPC.</li>
+                    <li><strong>Security:</strong> HTTPS, OAuth, AuthN vs AuthZ.</li>
+                </ul>
+
+                <div class="card np-class mt-6">
+                    <h4>⚡ Bonus Tip</h4>
+                    <p class="mt-2">Keep a mental map: "<strong>OS → concurrency</strong>, <strong>DBMS → ACID</strong>,
+                        <strong>CN →
+                            layers</strong>, <strong>DS → CAP theorem</strong>".</p>
+                </div>
+            </section>
+
+            <footer style="text-align: center; margin-top: 50px; font-size: 0.9em; color: #777;">
+                <p>Prepared for LeetCode Interview Prep</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section.content-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

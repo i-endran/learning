@@ -137,6 +137,54 @@ header h1 {
     margin-bottom: 30px;
 }
 
+/* Typography for Content Sections */
+.content-section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.content-section h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--sidebar-text);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.content-section h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #475569;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.content-section p,
+.content-section li {
+    line-height: 1.7;
+    color: #334155;
+    margin-bottom: 1rem;
+}
+
+.content-section ul,
+.content-section ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.content-section ul {
+    list-style-type: disc;
+}
+
+.content-section ol {
+    list-style-type: decimal;
+}
+
 /* Java Interactive Toggles */
 /* Note: Java page uses IDs to toggle visibility. 
    We need to ensure these classes exist. 
@@ -211,6 +259,8 @@ svg {
     padding: 25px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-top: 4px solid transparent;
+    margin-bottom: 1.5rem;
+    /* Add spacing between cards */
 }
 
 .card h3 {
